@@ -1,8 +1,8 @@
 package co.com.mercadolibre.mutantdetector.configuration;
 
 import co.com.mercadolibre.mutantdetector.adapters.MutantMongoAdapter;
-import co.com.mercadolibre.mutantdetector.ports.api.MutantServicePort;
-import co.com.mercadolibre.mutantdetector.ports.spi.MutantPersistencePort;
+import co.com.mercadolibre.mutantdetector.ports.MutantServicePort;
+import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
 import co.com.mercadolibre.mutantdetector.service.MutantServiceImpl;
 import com.mongodb.client.MongoClient;
 import org.springframework.beans.factory.annotation.Autowired;

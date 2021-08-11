@@ -1,8 +1,8 @@
 package co.com.mercadolibre.mutantdetector.controller;
 
-import co.com.mercadolibre.mutantdetector.dto.MutantRequest;
-import co.com.mercadolibre.mutantdetector.exception.MutantException;
-import co.com.mercadolibre.mutantdetector.ports.api.MutantServicePort;
+import co.com.mercadolibre.mutantdetector.controller.dto.MutantRequest;
+import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
+import co.com.mercadolibre.mutantdetector.ports.MutantServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class MutantController {
         try {
             return mutantService.isMutant(mutantRequest.getDna()) ? ResponseEntity.ok().build() :
                     ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        } catch (MutantException e) {
+        } catch (IncompleteDNAException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }

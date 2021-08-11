@@ -1,4 +1,4 @@
-package co.com.mercadolibre.mutantdetector.dto;
+package co.com.mercadolibre.mutantdetector.controller.dto;
 
 import lombok.Getter;
 

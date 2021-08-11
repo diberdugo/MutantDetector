@@ -1,8 +1,8 @@
-package co.com.mercadolibre.mutantdetector.controller;
+package co.com.mercadolibre.mutantdetector.controller.dto;
 
+import co.com.mercadolibre.mutantdetector.controller.StatsResponse;
 import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
-import co.com.mercadolibre.mutantdetector.dto.MutantStatsResponse;
-import co.com.mercadolibre.mutantdetector.ports.api.MutantServicePort;
+import co.com.mercadolibre.mutantdetector.ports.MutantServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +17,10 @@ public class StatsController {
     private MutantServicePort mutantService;
 
     @GetMapping({"/", ""})
-    public ResponseEntity<MutantStatsResponse> getStatus() {
+    public ResponseEntity<StatsResponse> getStatus() {
         MutantStatsDTO dto = mutantService.getStatus();
         return ResponseEntity.ok()
-                .body(MutantStatsResponse.builder()
+                .body(StatsResponse.builder()
                         .humans(dto.getHumans())
                         .mutants(dto.getMutants())
                         .ratio(dto.getRatio())

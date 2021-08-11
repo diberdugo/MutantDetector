@@ -1,4 +1,4 @@
-package co.com.mercadolibre.mutantdetector.ports.spi;
+package co.com.mercadolibre.mutantdetector.ports;
 
 import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
 

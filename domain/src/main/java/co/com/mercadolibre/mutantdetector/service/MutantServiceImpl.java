@@ -1,14 +1,13 @@
 package co.com.mercadolibre.mutantdetector.service;
 
 import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
-import co.com.mercadolibre.mutantdetector.exception.MutantException;
-import co.com.mercadolibre.mutantdetector.ports.api.MutantServicePort;
-import co.com.mercadolibre.mutantdetector.ports.spi.MutantPersistencePort;
+import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
+import co.com.mercadolibre.mutantdetector.ports.MutantServicePort;
+import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
+import co.com.mercadolibre.mutantdetector.service.strategy.MutantDetect;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class MutantServiceImpl implements MutantServicePort {
@@ -20,30 +19,13 @@ public class MutantServiceImpl implements MutantServicePort {
     }
 
     @Override
-    public boolean isMutant(String[] dna) throws MutantException {
-        String[][] adn = buildADN(dna);
+    public boolean isMutant(String[] dna) throws IncompleteDNAException {
+        Objects.requireNonNull(dna, "The DNA is required");
+        String[][] fullDNA = buildFullDNA(dna);
 
-        Long countHorizontal = IntStream.range(0, adn.length)
-                .filter(i -> validateADN(Arrays.asList(adn[i])))
-                .count();
+        boolean isMutant = new MutantDetect().execute(fullDNA) > 1;
 
-        Long countVertical = IntStream.range(0, adn.length)
-                .filter(i -> validateADN(Arrays.stream(adn)
-                        .map(row -> row[i])
-                        .collect(Collectors.toList())))
-                .count();
-
-        Long countMainDiag = validateADN(IntStream.range(0, adn.length)
-                .mapToObj(i -> adn[i][i])
-                .collect(Collectors.toList())) ? 1L : 0L;
-
-        Long countSecondaryDiag = validateADN(IntStream.range(0, adn.length)
-                .mapToObj(i -> adn[i][adn.length - 1 - i])
-                .collect(Collectors.toList())) ? 1L : 0L;
-
-        boolean isMutant = countHorizontal + countVertical + countMainDiag + countSecondaryDiag > 1;
         mutantPersistencePort.saveMutant(dna, isMutant);
-
         return isMutant;
     }
 
@@ -52,32 +34,23 @@ public class MutantServiceImpl implements MutantServicePort {
         return mutantPersistencePort.getStatus();
     }
 
-    private String[][] buildADN(String[] dna) throws MutantException {
-        String[][] adn = new String[6][6];
+    private String[][] buildFullDNA(String[] dna) throws IncompleteDNAException {
+        String[][] fullDNA;
 
-        try {
-            IntStream.range(0, adn.length)
-                    .forEach(i -> IntStream.range(0, adn[i].length)
-                            .forEach(j -> adn[i][j] = String.valueOf(dna[i].charAt(j))));
-        } catch (NullPointerException | StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-            throw new MutantException(e.getMessage(), e);
+        long sequences = Arrays.stream(dna)
+                .filter(seq -> seq.length() == dna.length)
+                .count();
+
+        if (sequences != dna.length) {
+            throw new IncompleteDNAException("Unable to build the DNA, the DNA is incomplete");
+        }
+        else {
+            fullDNA = new String[dna[0].length()][dna.length];
+            IntStream.range(0, fullDNA.length)
+                    .forEach(i -> IntStream.range(0, fullDNA[i].length)
+                            .forEach(j -> fullDNA[i][j] = String.valueOf(dna[i].charAt(j))));
         }
 
-        return adn;
-    }
-
-    private boolean validateADN(List<String> adn) {
-        AtomicInteger max = new AtomicInteger(1);
-
-        IntStream.range(1, adn.size()).forEach(i -> {
-            int count = 1;
-            while (i < adn.size() && adn.get(i - 1).equals(adn.get(i))) {
-                count++;
-                i++;
-                max.set(Math.max(count, max.get()));
-            }
-        });
-
-        return max.get() == 4;
+        return fullDNA;
     }
 }

@@ -3,7 +3,7 @@ package co.com.mercadolibre.mutantdetector.adapters;
 import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
 import co.com.mercadolibre.mutantdetector.entity.Mutant;
 import co.com.mercadolibre.mutantdetector.entity.MutantStats;
-import co.com.mercadolibre.mutantdetector.ports.spi.MutantPersistencePort;
+import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
 import co.com.mercadolibre.mutantdetector.repository.MutantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -15,7 +15,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.Random;
 
 public class MutantMongoAdapter implements MutantPersistencePort {
 
@@ -28,14 +27,14 @@ public class MutantMongoAdapter implements MutantPersistencePort {
     @Override
     public void saveMutant(String[] dna, boolean isMutant) {
         mutantRepository.save(Mutant.builder()
-                .adn(Arrays.toString(dna))
+                .dna(Arrays.toString(dna))
                 .isMutant(isMutant)
                 .build());
     }
 
     @Override
     public MutantStatsDTO getStatus() {
-        /*ConditionalOperators.Cond isMutant = ConditionalOperators.when(new Criteria("isMutant").is(true))
+        ConditionalOperators.Cond isMutant = ConditionalOperators.when(new Criteria("isMutant").is(true))
                 .then(1).otherwise(0);
 
         ConditionalOperators.Cond isHuman = ConditionalOperators.when(new Criteria("isMutant").is(false))
@@ -50,19 +49,15 @@ public class MutantMongoAdapter implements MutantPersistencePort {
         AggregationResults<MutantStats> orderAggregate = mongoOperations.aggregate(aggregation,
                 "mutants", MutantStats.class);
 
-        Optional<MutantStats> status = orderAggregate.getMappedResults().stream().findFirst();*/
-        Random r = new Random();
-        MutantStatsDTO mutantStatsDTO = MutantStatsDTO.builder()
-                .humans(r.nextInt(1000-50) + 50)
-                .mutants(r.nextInt(1000-50) + 50)
-                .build();
+        Optional<MutantStats> status = orderAggregate.getMappedResults().stream().findFirst();
+        MutantStatsDTO mutantStatsDTO = MutantStatsDTO.builder().build();
 
-        /*if (status.isPresent()) {
+        if (status.isPresent()) {
             mutantStatsDTO = MutantStatsDTO.builder()
                     .humans(status.get().getCountHumans())
                     .mutants(status.get().getCountMutants())
                     .build();
-        }*/
+        }
 
         return mutantStatsDTO;
     }
