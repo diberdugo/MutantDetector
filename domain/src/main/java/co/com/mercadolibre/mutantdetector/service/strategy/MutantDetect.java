@@ -7,7 +7,7 @@ public class MutantDetect implements MutantDetectStrategy {
 
     private final List<MutantDetectStrategy> mutantDetectStrategies;
 
-    public MutantDetect(){
+    public MutantDetect() {
         mutantDetectStrategies = new ArrayList<>();
         mutantDetectStrategies.add(new VerticalDNA());
         mutantDetectStrategies.add(new HorizontalDNA());

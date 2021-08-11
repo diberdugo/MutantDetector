@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ObliqueLeftDNA implements MutantDetectStrategy {
@@ -12,9 +11,7 @@ public class ObliqueLeftDNA implements MutantDetectStrategy {
     @Override
     public Long execute(String[][] fullDNA) {
         return getObliqueLeftDNA(fullDNA).stream()
-                .filter(i -> verifySequenceDNA(i.chars()
-                        .mapToObj(c ->  String.valueOf((char)c))
-                        .collect(Collectors.toList())))
+                .filter(this::verifySequenceDNA)
                 .count();
     }
 
@@ -31,7 +28,7 @@ public class ObliqueLeftDNA implements MutantDetectStrategy {
             temp.set(row.get());
             sb.set(new StringBuilder());
 
-            while(temp.get() >= 0){
+            while (temp.get() >= 0) {
                 sb.get().append(fullDNA[temp.get()][col.get()]);
                 temp.getAndDecrement();
                 col.getAndIncrement();
@@ -39,7 +36,7 @@ public class ObliqueLeftDNA implements MutantDetectStrategy {
 
             row.getAndIncrement();
 
-            if(sb.toString().length() >= MATCH_SEQUENCE) {
+            if (sb.toString().length() >= MATCH_SEQUENCE) {
                 sequences.add(sb.toString());
             }
         });
@@ -51,7 +48,7 @@ public class ObliqueLeftDNA implements MutantDetectStrategy {
             row.set(fullDNA.length - 1);
             sb.set(new StringBuilder());
 
-            while(temp.get() <= fullDNA.length-1){
+            while (temp.get() <= fullDNA.length - 1) {
                 sb.get().append(fullDNA[row.get()][temp.get()]);
                 row.getAndDecrement();
                 temp.getAndIncrement();
@@ -59,7 +56,7 @@ public class ObliqueLeftDNA implements MutantDetectStrategy {
 
             col.getAndIncrement();
 
-            if(sb.toString().length() >= MATCH_SEQUENCE) {
+            if (sb.toString().length() >= MATCH_SEQUENCE) {
                 sequences.add(sb.toString());
             }
         });

@@ -11,7 +11,7 @@ public class VerticalDNA implements MutantDetectStrategy {
         return IntStream.range(0, fullDNA.length)
                 .filter(i -> verifySequenceDNA(Arrays.stream(fullDNA)
                         .map(row -> row[i])
-                        .collect(Collectors.toList())))
+                        .collect(Collectors.joining(""))))
                 .count();
     }
 }
