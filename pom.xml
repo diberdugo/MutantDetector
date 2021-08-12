@@ -21,7 +21,6 @@
         <module>domain</module>
         <module>infrastructure</module>
         <module>launcher</module>
-        <module>performance-tests</module>
         <module>automation-test</module>
     </modules>
 
