@@ -26,8 +26,6 @@ public class MutantServiceImpl implements MutantServicePort {
 
     @Override
     public boolean isMutant(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
-        Objects.requireNonNull(dna, "The DNA is required");
-
         boolean isMutant = new MutantDetect().execute(buildFullDNA(dna)) > 1;
         mutantPersistencePort.saveMutant(dna, isMutant);
 
@@ -35,12 +33,16 @@ public class MutantServiceImpl implements MutantServicePort {
     }
 
     @Override
-    public MutantStatsDTO getStatus() {
-        return mutantPersistencePort.getStatus();
+    public MutantStatsDTO getStats() {
+        return mutantPersistencePort.getStats();
     }
 
     private String[][] buildFullDNA(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
         String[][] fullDNA;
+
+        if (dna == null) {
+            throw new IncompleteDNAException("The DNA must not be null");
+        }
 
         Set<String> currentDNACode = Arrays.stream(dna)
                 .flatMap(i -> i.chars().mapToObj(c -> String.valueOf((char) c)))
@@ -56,7 +58,7 @@ public class MutantServiceImpl implements MutantServicePort {
                 .count();
 
         if (sequences != dna.length) {
-            throw new IncompleteDNAException("Unable to build the DNA, the DNA is incomplete");
+            throw new IncompleteDNAException("Unable to build the DNA, the DNA sequences are incomplete");
         }
 
         fullDNA = new String[dna[0].length()][dna.length];

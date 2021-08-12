@@ -6,5 +6,5 @@ public interface MutantPersistencePort {
 
     void saveMutant(String[] dna, boolean isMutant);
 
-    MutantStatsDTO getStatus();
+    MutantStatsDTO getStats();
 }

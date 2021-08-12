@@ -33,7 +33,7 @@ public class MutantMongoAdapter implements MutantPersistencePort {
     }
 
     @Override
-    public MutantStatsDTO getStatus() {
+    public MutantStatsDTO getStats() {
         ConditionalOperators.Cond isMutant = ConditionalOperators.when(new Criteria("isMutant").is(true))
                 .then(1).otherwise(0);
 
@@ -49,13 +49,13 @@ public class MutantMongoAdapter implements MutantPersistencePort {
         AggregationResults<MutantStats> orderAggregate = mongoOperations.aggregate(aggregation,
                 "mutants", MutantStats.class);
 
-        Optional<MutantStats> status = orderAggregate.getMappedResults().stream().findFirst();
+        Optional<MutantStats> stats = orderAggregate.getMappedResults().stream().findFirst();
         MutantStatsDTO mutantStatsDTO = MutantStatsDTO.builder().build();
 
-        if (status.isPresent()) {
+        if (stats.isPresent()) {
             mutantStatsDTO = MutantStatsDTO.builder()
-                    .humans(status.get().getCountHumans())
-                    .mutants(status.get().getCountMutants())
+                    .humans(stats.get().getCountHumans())
+                    .mutants(stats.get().getCountMutants())
                     .build();
         }
 

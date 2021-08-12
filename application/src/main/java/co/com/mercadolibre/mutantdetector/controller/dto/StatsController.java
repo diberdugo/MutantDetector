@@ -17,8 +17,8 @@ public class StatsController {
     private MutantServicePort mutantService;
 
     @GetMapping({"/", ""})
-    public ResponseEntity<StatsResponse> getStatus() {
-        MutantStatsDTO dto = mutantService.getStatus();
+    public ResponseEntity<StatsResponse> getStats() {
+        MutantStatsDTO dto = mutantService.getStats();
         return ResponseEntity.ok()
                 .body(StatsResponse.builder()
                         .humans(dto.getHumans())

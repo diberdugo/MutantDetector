@@ -4,13 +4,14 @@ import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
 import co.com.mercadolibre.mutantdetector.exception.InvalidDNACodeException;
 import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
 import co.com.mercadolibre.mutantdetector.service.MutantServiceImpl;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,7 +29,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -38,7 +39,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, false);
 
-        Assert.assertFalse("The dna provided must belong to a human",
+        assertFalse("The dna provided must belong to a human",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -48,7 +49,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, false);
 
-        Assert.assertFalse("The dna provided must belong to a human",
+        assertFalse("The dna provided must belong to a human",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -58,7 +59,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -68,7 +69,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -78,7 +79,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -88,7 +89,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -98,7 +99,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -108,7 +109,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -119,7 +120,7 @@ public class MutantTest {
 
         doNothing().when(mutantPersistencePort).saveMutant(dna, true);
 
-        Assert.assertTrue("The dna provided must belong to a mutant",
+        assertTrue("The dna provided must belong to a mutant",
                 mutantServicePort.isMutant(dna));
     }
 
@@ -133,7 +134,7 @@ public class MutantTest {
         mutantServicePort.isMutant(new String[]{"CAGTC", "TTATT", "AGACGG", "GCGTCA", "TCACTG"});
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IncompleteDNAException.class)
     public void nullDNA() throws IncompleteDNAException, InvalidDNACodeException {
         mutantServicePort.isMutant(null);
     }

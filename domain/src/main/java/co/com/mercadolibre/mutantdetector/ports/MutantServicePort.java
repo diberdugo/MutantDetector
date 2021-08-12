@@ -8,5 +8,5 @@ public interface MutantServicePort {
 
     boolean isMutant(String[] dna) throws IncompleteDNAException, InvalidDNACodeException;
 
-    MutantStatsDTO getStatus();
+    MutantStatsDTO getStats();
 }
