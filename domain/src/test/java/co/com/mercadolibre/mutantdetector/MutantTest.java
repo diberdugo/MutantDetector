@@ -124,9 +124,19 @@ public class MutantTest {
                 mutantServicePort.isMutant(dna));
     }
 
+    @Test
+    public void isMutantFull() throws IncompleteDNAException, InvalidDNACodeException {
+        String[] dna = {"AAAAAA", "AAAAAA", "AAAAAA", "AAAAAA", "AAAAAA", "AAAAAA"};
+
+        doNothing().when(mutantPersistencePort).saveMutant(dna, true);
+
+        assertTrue("The dna provided must belong to a mutant",
+                mutantServicePort.isMutant(dna));
+    }
+
     @Test(expected = InvalidDNACodeException.class)
     public void invalidDNA() throws IncompleteDNAException, InvalidDNACodeException {
-        mutantServicePort.isMutant(new String[] {"XTGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"});
+        mutantServicePort.isMutant(new String[]{"XTGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"});
     }
 
     @Test(expected = IncompleteDNAException.class)
@@ -137,5 +147,10 @@ public class MutantTest {
     @Test(expected = IncompleteDNAException.class)
     public void nullDNA() throws IncompleteDNAException, InvalidDNACodeException {
         mutantServicePort.isMutant(null);
+    }
+
+    @Test(expected = IncompleteDNAException.class)
+    public void nullSequencesDNA() throws IncompleteDNAException, InvalidDNACodeException {
+        mutantServicePort.isMutant(new String[]{ null, null });
     }
 }

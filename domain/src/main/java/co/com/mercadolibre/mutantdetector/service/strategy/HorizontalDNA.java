@@ -7,7 +7,7 @@ public class HorizontalDNA implements MutantDetectStrategy {
     @Override
     public Long execute(String[][] fullDNA) {
         return IntStream.range(0, fullDNA.length)
-                .filter(i -> verifySequenceDNA(String.join("", fullDNA[i])))
+                .filter(i -> this.verifySequenceDNA(String.join("", fullDNA[i])))
                 .count();
     }
 }

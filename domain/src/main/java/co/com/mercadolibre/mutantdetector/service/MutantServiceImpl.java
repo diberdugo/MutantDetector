@@ -5,11 +5,14 @@ import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
 import co.com.mercadolibre.mutantdetector.exception.InvalidDNACodeException;
 import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
 import co.com.mercadolibre.mutantdetector.ports.MutantServicePort;
+import co.com.mercadolibre.mutantdetector.service.strategy.HorizontalDNA;
 import co.com.mercadolibre.mutantdetector.service.strategy.MutantDetect;
+import co.com.mercadolibre.mutantdetector.service.strategy.ObliqueLeftDNA;
+import co.com.mercadolibre.mutantdetector.service.strategy.ObliqueRightDNA;
+import co.com.mercadolibre.mutantdetector.service.strategy.VerticalDNA;
 import com.google.inject.internal.util.ImmutableSet;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,7 +29,14 @@ public class MutantServiceImpl implements MutantServicePort {
 
     @Override
     public boolean isMutant(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
-        boolean isMutant = new MutantDetect().execute(buildFullDNA(dna)) > 1;
+        MutantDetect mutantDetect = MutantDetect.builder()
+                .mutantDetect(new VerticalDNA())
+                .mutantDetect(new HorizontalDNA())
+                .mutantDetect(new ObliqueLeftDNA())
+                .mutantDetect(new ObliqueRightDNA())
+                .build();
+
+        boolean isMutant = mutantDetect.execute(buildFullDNA(dna)) > 1;
         mutantPersistencePort.saveMutant(dna, isMutant);
 
         return isMutant;
@@ -38,9 +48,19 @@ public class MutantServiceImpl implements MutantServicePort {
     }
 
     private String[][] buildFullDNA(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
-        String[][] fullDNA;
+        verifyDNA(dna);
 
-        if (dna == null) {
+        String[][] fullDNA = new String[dna[0].length()][dna.length];
+        IntStream.range(0, fullDNA.length)
+                .forEach(i -> IntStream.range(0, fullDNA[i].length)
+                        .forEach(j -> fullDNA[i][j] = String.valueOf(dna[i].charAt(j))));
+
+
+        return fullDNA;
+    }
+
+    private void verifyDNA(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
+        if (dna == null || Arrays.asList(dna).contains(null)) {
             throw new IncompleteDNAException("The DNA must not be null");
         }
 
@@ -60,13 +80,5 @@ public class MutantServiceImpl implements MutantServicePort {
         if (sequences != dna.length) {
             throw new IncompleteDNAException("Unable to build the DNA, the DNA sequences are incomplete");
         }
-
-        fullDNA = new String[dna[0].length()][dna.length];
-        IntStream.range(0, fullDNA.length)
-                .forEach(i -> IntStream.range(0, fullDNA[i].length)
-                        .forEach(j -> fullDNA[i][j] = String.valueOf(dna[i].charAt(j))));
-
-
-        return fullDNA;
     }
 }
