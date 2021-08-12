@@ -1,11 +1,11 @@
-package co.com.mercadolibre.mutantdetector.automationtest.data;
+package co.com.mercadolibre.mutantdetector.automationtest.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class Mutant {
+public class MutantDTO {
 
     private final String[] dna;
 }

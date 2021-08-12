@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector.automationtest.steps;
 
-import co.com.mercadolibre.mutantdetector.automationtest.data.Stats;
+import co.com.mercadolibre.mutantdetector.automationtest.dto.StatsDTO;
 import io.cucumber.java8.En;
 
 import static org.testng.Assert.assertNotNull;
@@ -18,10 +18,10 @@ public class StatsSteps implements En {
                         .get("/stats")));
 
         Then("I should see the stats info on the response", () -> {
-            Stats stats = commonsSteps.getResponse().as(Stats.class);
-            assertNotNull(stats.getHumans(), "The humans cont must not be null.");
-            assertNotNull(stats.getMutants(),"The mutant cont must not be null.");
-            assertNotNull(stats.getRatio(),"The ratio must not be null.");
+            StatsDTO statsDTO = commonsSteps.getResponse().as(StatsDTO.class);
+            assertNotNull(statsDTO.getHumans(), "The humans cont must not be null.");
+            assertNotNull(statsDTO.getMutants(),"The mutant cont must not be null.");
+            assertNotNull(statsDTO.getRatio(),"The ratio must not be null.");
         });
     }
 }

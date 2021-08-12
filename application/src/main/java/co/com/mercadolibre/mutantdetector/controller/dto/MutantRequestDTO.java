@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class MutantRequest implements Serializable {
+public class MutantRequestDTO implements Serializable {
 
     private String[] dna;
 }

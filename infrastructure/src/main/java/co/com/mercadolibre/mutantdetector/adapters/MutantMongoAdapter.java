@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector.adapters;
 
-import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
+import co.com.mercadolibre.mutantdetector.dto.MutantStatsDTO;
 import co.com.mercadolibre.mutantdetector.entity.Mutant;
 import co.com.mercadolibre.mutantdetector.entity.MutantStats;
 import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;

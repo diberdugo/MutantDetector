@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector.ports;
 
-import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
+import co.com.mercadolibre.mutantdetector.dto.MutantStatsDTO;
 import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
 import co.com.mercadolibre.mutantdetector.exception.InvalidDNACodeException;
 

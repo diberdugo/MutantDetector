@@ -8,6 +8,11 @@ import java.util.stream.IntStream;
 
 public class ObliqueRightDNA implements MutantDetectStrategy {
 
+    /**
+     * Obtains all right-side oblique sequences
+     * @param fullDNA Matrix will all the DNA
+     * @return Quantity of found sequences of a mutant
+     */
     @Override
     public Long execute(String[][] fullDNA) {
         return getObliqueRightDNA(fullDNA).stream()
@@ -15,6 +20,11 @@ public class ObliqueRightDNA implements MutantDetectStrategy {
                 .count();
     }
 
+    /**
+     * Obtains all right-side oblique sequences
+     * @param fullDNA Matrix will all the DNA
+     * @return right-side oblique sequences
+     */
     private List<String> getObliqueRightDNA(String[][] fullDNA) {
         List<String> sequences = new ArrayList<>();
 

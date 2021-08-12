@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector;
 
-import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
+import co.com.mercadolibre.mutantdetector.dto.MutantStatsDTO;
 import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
 import co.com.mercadolibre.mutantdetector.service.MutantServiceImpl;
 import org.junit.Test;

@@ -6,6 +6,11 @@ import java.util.stream.IntStream;
 
 public class VerticalDNA implements MutantDetectStrategy {
 
+    /**
+     * Obtains all vertical DNA sequences
+     * @param fullDNA Matrix will all the DNA
+     * @return Quantity of found sequences of a mutant
+     */
     @Override
     public Long execute(String[][] fullDNA) {
         return IntStream.range(0, fullDNA.length)

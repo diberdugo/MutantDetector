@@ -1,4 +1,4 @@
-package co.com.mercadolibre.mutantdetector.automationtest.data;
+package co.com.mercadolibre.mutantdetector.automationtest.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Stats {
+public class StatsDTO {
 
     @JsonProperty(value = "count_human_dna")
     private Integer humans;

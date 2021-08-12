@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 
 @Configuration
-public class MutantConfig {
+public class MutantDetectorConfig {
 
     @Autowired
     private MongoClient mongoClient;

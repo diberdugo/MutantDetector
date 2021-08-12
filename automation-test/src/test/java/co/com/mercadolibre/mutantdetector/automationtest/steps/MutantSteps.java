@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector.automationtest.steps;
 
-import co.com.mercadolibre.mutantdetector.automationtest.data.Mutant;
+import co.com.mercadolibre.mutantdetector.automationtest.dto.MutantDTO;
 import io.cucumber.java8.En;
 
 public class MutantSteps implements En {
@@ -15,7 +15,7 @@ public class MutantSteps implements En {
 
             commonsSteps.setResponse(commonsSteps.getRequest()
                     .when()
-                    .body(Mutant.builder().dna(dnaSequence).build())
+                    .body(MutantDTO.builder().dna(dnaSequence).build())
                     .post("/mutant"));
         });
     }

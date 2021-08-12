@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector.controller;
 
-import co.com.mercadolibre.mutantdetector.controller.dto.MutantRequest;
+import co.com.mercadolibre.mutantdetector.controller.dto.MutantRequestDTO;
 import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
 import co.com.mercadolibre.mutantdetector.exception.InvalidDNACodeException;
 import co.com.mercadolibre.mutantdetector.ports.MutantServicePort;
@@ -20,9 +20,9 @@ public class MutantController {
     private MutantServicePort mutantService;
 
     @PostMapping({"/", ""})
-    public ResponseEntity<Void> isMutant(@RequestBody MutantRequest mutantRequest) {
+    public ResponseEntity<Void> isMutant(@RequestBody MutantRequestDTO mutantRequestDTO) {
         try {
-            return mutantService.isMutant(mutantRequest.getDna()) ? ResponseEntity.ok().build() :
+            return mutantService.isMutant(mutantRequestDTO.getDna()) ? ResponseEntity.ok().build() :
                     ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } catch (IncompleteDNAException | InvalidDNACodeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

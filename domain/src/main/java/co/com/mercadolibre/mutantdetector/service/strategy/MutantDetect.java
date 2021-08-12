@@ -10,6 +10,11 @@ public class MutantDetect implements MutantDetectStrategy {
 
     private final List<MutantDetectStrategy> mutantDetectStrategies;
 
+    /**
+     * Execute all strategies to find the DNA mutant
+     * @param fullDNA Matrix will all the DNA
+     * @return Quantity of found sequences of a mutant
+     */
     @Override
     public Long execute(String[][] fullDNA) {
         return mutantDetectStrategies.stream()

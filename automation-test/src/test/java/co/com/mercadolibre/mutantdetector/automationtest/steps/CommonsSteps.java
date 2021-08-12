@@ -31,12 +31,15 @@ public class CommonsSteps implements En {
     public CommonsSteps() {
         Before((Scenario scenario) -> this.scenario = scenario);
 
-        Given("I configured the mutants API", () ->
-                request = RestAssured
-                        .given()
-                        .filters(requestLoggingFilter, responseLoggingFilter)
-                        .contentType(ContentType.JSON)
-                        .baseUri(System.getProperty("uri")));
+        Given("I configured the mutants API", () -> {
+            String baseUri = System.getProperty("uri") != null ? System.getProperty("uri") : "http://localhost:80";
+
+            request = RestAssured
+                    .given()
+                    .filters(requestLoggingFilter, responseLoggingFilter)
+                    .contentType(ContentType.JSON)
+                    .baseUri(baseUri);
+        });
 
         Then("I will receipt HTTP code {int} as service response", (Integer code) ->
                 assertEquals(response.getStatusCode(), code.intValue()));

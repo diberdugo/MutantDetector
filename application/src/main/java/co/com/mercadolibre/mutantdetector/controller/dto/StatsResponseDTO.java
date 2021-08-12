@@ -1,4 +1,4 @@
-package co.com.mercadolibre.mutantdetector.controller;
+package co.com.mercadolibre.mutantdetector.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class StatsResponse {
+public class StatsResponseDTO {
 
     @JsonProperty(value = "count_human_dna")
     private Integer humans;

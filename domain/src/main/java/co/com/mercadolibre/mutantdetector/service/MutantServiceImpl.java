@@ -1,6 +1,6 @@
 package co.com.mercadolibre.mutantdetector.service;
 
-import co.com.mercadolibre.mutantdetector.data.MutantStatsDTO;
+import co.com.mercadolibre.mutantdetector.dto.MutantStatsDTO;
 import co.com.mercadolibre.mutantdetector.exception.IncompleteDNAException;
 import co.com.mercadolibre.mutantdetector.exception.InvalidDNACodeException;
 import co.com.mercadolibre.mutantdetector.ports.MutantPersistencePort;
@@ -47,6 +47,13 @@ public class MutantServiceImpl implements MutantServicePort {
         return mutantPersistencePort.getStats();
     }
 
+    /**
+     * Build a matrix with all DNA sequences
+     * @param dna Array with all DNA sequences
+     * @return Matrix with the complete DNA
+     * @throws IncompleteDNAException if the DNA is incomplete
+     * @throws InvalidDNACodeException if the DNA not hast only the four words allowed
+     */
     private String[][] buildFullDNA(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
         verifyDNA(dna);
 
@@ -59,6 +66,12 @@ public class MutantServiceImpl implements MutantServicePort {
         return fullDNA;
     }
 
+    /**
+     * Verify the DNA mutant is valid
+     * @param dna Array with all DNA sequences
+     * @throws IncompleteDNAException if the DNA is incomplete
+     * @throws InvalidDNACodeException if the DNA not hast only the four words allowed
+     */
     private void verifyDNA(String[] dna) throws IncompleteDNAException, InvalidDNACodeException {
         if (dna == null || Arrays.asList(dna).contains(null)) {
             throw new IncompleteDNAException("The DNA must not be null");

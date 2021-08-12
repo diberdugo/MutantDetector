@@ -23,10 +23,10 @@ Feature: This feature verifies if a given DNA is mutant or human
   Scenario Outline: Validate invalid mutant DNA
     Given I configured the mutants API
     When I want to validate if the "<dna>" DNA is a mutant
-    Then I will receipt HTTP code <statusCode> as service response
+    Then I will receipt HTTP code 400 as service response
 
     Examples:
-      | dna                                       | statusCode |
-      | XTGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG | 400        |
-      | CAGTC,TTATT,AGACGG,GCGTCA,TCACTG          | 400        |
-      | null                                      | 400        |
+      | dna                                       |
+      | XTGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG |
+      | CAGTC,TTATT,AGACGG,GCGTCA,TCACTG          |
+      | null                                      |

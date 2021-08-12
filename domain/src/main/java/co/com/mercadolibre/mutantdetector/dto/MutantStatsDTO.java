@@ -1,4 +1,4 @@
-package co.com.mercadolibre.mutantdetector.data;
+package co.com.mercadolibre.mutantdetector.dto;
 
 import lombok.Builder;
 import lombok.Getter;
