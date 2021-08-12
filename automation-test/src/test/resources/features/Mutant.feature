@@ -17,7 +17,6 @@ Feature: This feature verifies if a given DNA is mutant or human
       | CCCTGT,TTTACA,TTGTAG,TCTTGT,GGTGGA,ACGTGC                                                                                                                   | 200        |
       | CCCCGT,TTAACA,TGGTGT,TCTTTT,GGTGGA,ACTTGC                                                                                                                   | 200        |
       | TACCCT,TTAACA,TGGTGT,TCTGGT,GGTGGA,ACTTGC                                                                                                                   | 200        |
-      | TACCCT,TTAACA,TGGTGT,TCTGGT,GGTGGA,ACTTGC                                                                                                                   | 403        |
       | GCCCCTACGTGA,GGAACATCCATA,TGGTTTTACACA,TCTGATTACGAG,GGTGGATTCTCG,ACTTGCCGCTTA,ACTCCTACCCCC,GCAACGCGGCTC,TGCCTGTCAACT,TGTATCCGTTTC,GTGTGGACTTCC,GTGTGAGCCGTC | 200        |
 
 
