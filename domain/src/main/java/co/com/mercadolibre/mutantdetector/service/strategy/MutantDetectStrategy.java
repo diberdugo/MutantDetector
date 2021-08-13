@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 public interface MutantDetectStrategy {
 
     int MATCH_SEQUENCE = 4;
+    int MAX_SEQUENCE = 1;
 
     /**
      * Check if a given DNA sequence has only 4 consecutive codes of any letter

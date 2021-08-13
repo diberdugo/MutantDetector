@@ -36,7 +36,7 @@ public class MutantServiceImpl implements MutantServicePort {
                 .mutantDetect(new ObliqueRightDNA())
                 .build();
 
-        boolean isMutant = mutantDetect.execute(buildFullDNA(dna)) > 1;
+        boolean isMutant = mutantDetect.execute(buildFullDNA(dna)) > mutantDetect.MAX_SEQUENCE;
         mutantPersistencePort.saveMutant(dna, isMutant);
 
         return isMutant;

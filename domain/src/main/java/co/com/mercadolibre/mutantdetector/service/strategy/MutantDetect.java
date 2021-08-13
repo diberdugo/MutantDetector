@@ -17,9 +17,17 @@ public class MutantDetect implements MutantDetectStrategy {
      */
     @Override
     public Long execute(String[][] fullDNA) {
-        return mutantDetectStrategies.stream()
-                .mapToLong(strategy -> strategy.execute(fullDNA))
-                .sum();
+        Long sequences = 0L;
+
+        for (MutantDetectStrategy strategy: mutantDetectStrategies) {
+            sequences+= strategy.execute(fullDNA);
+
+            if (sequences > MAX_SEQUENCE) {
+                break;
+            }
+        }
+
+        return sequences;
     }
 
     public static class MutantDetectBuilder {
