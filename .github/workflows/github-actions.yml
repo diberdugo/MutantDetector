@@ -1,1 +1,20 @@
 
+name: trigger jenkins
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: trigger Job
+      uses: appleboy/jenkins-action@master
+      with:
+        url: "http://ec2-3-81-1-92.compute-1.amazonaws.com:8080"
+        user: "admin"
+        token: 11041abf12463fe71b1cdf35aec79c4c1b
+        job: "MutantDetector API"
