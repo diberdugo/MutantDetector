@@ -7,5 +7,4 @@ public class MutantStats {
 
     private Integer countHumans;
     private Integer countMutants;
-    private Integer isMutant;
 }

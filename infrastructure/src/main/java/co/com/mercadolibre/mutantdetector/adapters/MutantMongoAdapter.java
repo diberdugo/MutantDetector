@@ -50,12 +50,18 @@ public class MutantMongoAdapter implements MutantPersistencePort {
                 "mutants", MutantStats.class);
 
         Optional<MutantStats> stats = orderAggregate.getMappedResults().stream().findFirst();
-        MutantStatsDTO mutantStatsDTO = MutantStatsDTO.builder().build();
+        MutantStatsDTO mutantStatsDTO;
 
         if (stats.isPresent()) {
             mutantStatsDTO = MutantStatsDTO.builder()
                     .humans(stats.get().getCountHumans())
                     .mutants(stats.get().getCountMutants())
+                    .build();
+        }
+        else {
+            mutantStatsDTO = MutantStatsDTO.builder()
+                    .humans(0)
+                    .mutants(0)
                     .build();
         }
 
