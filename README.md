@@ -63,11 +63,10 @@ Se realizaron los siguientes tipos de pruebas:
 - Pruebas unitarias (JUnit con mockito)
 - Pruebas de integración y funcionales (Cucumber con rest assured)
 
-
-###Pruebas unitarias
+######Pruebas unitarias
 Gracias a la arquitectura hexagonal se pueden realizar pruebas unitarias de forma muy sencilla ya que, nuestro dominio se encuentra totalmente aislado y no depende de ningún tipo de framework o de entes externos, el porcentaje de coverage es de 94%
 
-###Pruebas de integración y funcionales
+######Pruebas de integración y funcionales
 Para la realización de este tipo de pruebas se utilizó Cucumber (herramienta que permite escribir tests usando BDD) y rest assured que nos permite realizar pruebas sobre servicios.
 
 ##Integración continua
