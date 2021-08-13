@@ -29,6 +29,6 @@ public class StatsController {
 
     @GetMapping({"/test"})
     public String test() {
-        return "test v1";
+        return "test v2";
     }
 }
