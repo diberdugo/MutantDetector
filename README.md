@@ -63,13 +63,13 @@ Se realizaron los siguientes tipos de pruebas:
 - Pruebas unitarias (JUnit con mockito)
 - Pruebas de integración y funcionales (Cucumber con rest assured)
 
-######Pruebas unitarias
+### Pruebas unitarias
 Gracias a la arquitectura hexagonal se pueden realizar pruebas unitarias de forma muy sencilla ya que, nuestro dominio se encuentra totalmente aislado y no depende de ningún tipo de framework o de entes externos, el porcentaje de coverage es de 94%
 
-######Pruebas de integración y funcionales
+### Pruebas de integración y funcionales
 Para la realización de este tipo de pruebas se utilizó Cucumber (herramienta que permite escribir tests usando BDD) y rest assured que nos permite realizar pruebas sobre servicios.
 
-##Integración continua
+## Integración continua
 La solución que se implementó cuenta con integración continua en jenkins, esto quiere decir que automáticamente después de un cambio en el repositorio automáticamente se construirán los artefactos, se correrán pruebas unitarias, se desplegará en AWS y se ejecutarán las pruebas automatizadas.
 
 En el siguiente link [Jenkins](http://ec2-3-81-1-92.compute-1.amazonaws.com:8080/) se puede ingresar al servidor, el usuario y contraseña para ingresar fueron suministrados en la entrega del ejercicio, una vez allí se podrá visualizar un Job llamado MutantDetector API el cual contiene un reporte de coverage (jacoco) y el reporte de pruebas automatizas (cucumber), estos reportes están dados por cada una de las build.
@@ -87,13 +87,13 @@ En el siguiente link [Jenkins](http://ec2-3-81-1-92.compute-1.amazonaws.com:8080
 ## Ejecución remota
 La api se encuentra publicada en la siguiente URL:
 
-| Base URL | Método | Operación|
+| Base URL | Path | Método |
 |---|---|---|
 |http://mutant-detector-lb-1454162446.us-east-1.elb.amazonaws.com/mutant-detector|/stats|GET|
 |http://mutant-detector-lb-1454162446.us-east-1.elb.amazonaws.com/mutant-detector|/mutant|POST|
 
 ## Ejecución local
-Para ejecutar localmente descargue el proyecto de este repositorio y constrúyalo utilizando maven. Una vez construido ejecutar la clase llamada **Application.java** ubicada en el modulo **launcer** esta clase levantará un servicio en el localhost con el puerto 80, después de esto ya está listo para realizar peticiones.
+Para ejecutar localmente descargue el proyecto de este repositorio y constrúyalo utilizando maven. Una vez construido ejecutar la clase llamada **Application.java** ubicada en el modulo **launcher** esta clase levantará un servicio en el localhost con el puerto 80, después de esto ya está listo para realizar peticiones.
 
 Nota: La conexión a la base de datos ya se encuentra configurada por defecto.
 
