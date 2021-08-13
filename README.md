@@ -93,11 +93,15 @@ La api se encuentra publicada en la siguiente URL:
 |http://mutant-detector-lb-1454162446.us-east-1.elb.amazonaws.com/mutant-detector|/mutant|POST|
 
 ## Ejecución local
-Para ejecutar localmente descargue el proyecto de este repositorio y constrúyalo utilizando maven. Una vez construido ejecutar la clase llamada **Application.java** ubicada en el modulo **launcher** esta clase levantará un servicio en el localhost con el puerto 80, después de esto ya está listo para realizar peticiones.
+Para ejecutar localmente descargue el proyecto de este repositorio y constrúyalo utilizando maven con el siguiente comando:
+```sh
+mvn --projects !automation-test --also-make clean install
+```
+Una vez construido, ejecutar la clase llamada **Application.java** ubicada en el modulo **launcher** esta clase levantará un servicio en el localhost con el puerto 80, después de esto ya está listo para realizar peticiones.
 
 Nota: La conexión a la base de datos ya se encuentra configurada por defecto.
 
-Para ejecutar las pruebas automatizas ejecuté el siguiente comando maven:
+Para ejecutar las pruebas automatizas ejecute el siguiente comando maven:
 ```sh
 mvn --projects automation-test --also-make clean install -Duri="http://localhost:80/mutant-detector"
 ```
