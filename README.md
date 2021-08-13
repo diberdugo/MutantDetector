@@ -70,7 +70,7 @@ Gracias a la arquitectura hexagonal se pueden realizar pruebas unitarias de form
 Para la realización de este tipo de pruebas se utilizó Cucumber (herramienta que permite escribir tests usando BDD) y rest assured que nos permite realizar pruebas sobre servicios.
 
 ## Integración continua
-La solución que se implementó cuenta con integración continua en jenkins, esto quiere decir que automáticamente después de un cambio en el repositorio automáticamente se construirán los artefactos, se correrán pruebas unitarias, se desplegará en AWS y se ejecutarán las pruebas automatizadas.
+La solución que se implementó cuenta con integración continua en jenkins, esto quiere decir que automáticamente después de realizar un merge hacia la rama main automáticamente se construirán los artefactos, se correrán pruebas unitarias, se desplegará en AWS y se ejecutarán las pruebas automatizadas.
 
 En el siguiente link [Jenkins](http://ec2-3-81-1-92.compute-1.amazonaws.com:8080/) se puede ingresar al servidor, el usuario y contraseña para ingresar fueron suministrados en la entrega del ejercicio, una vez allí se podrá visualizar un Job llamado MutantDetector API el cual contiene un reporte de coverage (jacoco) y el reporte de pruebas automatizas (cucumber), estos reportes están dados por cada una de las build.
 
