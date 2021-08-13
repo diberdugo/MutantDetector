@@ -26,9 +26,4 @@ public class StatsController {
                         .ratio(dto.getRatio())
                         .build());
     }
-
-    @GetMapping({"/test"})
-    public String test() {
-        return "test v3";
-    }
 }
