@@ -32,8 +32,7 @@ public class CommonsSteps implements En {
         Before((Scenario scenario) -> this.scenario = scenario);
 
         Given("I configured the mutants API", () -> {
-            String baseUri = System.getProperty("uri") != null ? System.getProperty("uri") : "http://localhost:80";
-
+            String baseUri = System.getProperty("uri") != null ? System.getProperty("uri") : "http://localhost:80/mutant-detector";
             request = RestAssured
                     .given()
                     .filters(requestLoggingFilter, responseLoggingFilter)
