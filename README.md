@@ -15,12 +15,12 @@ El ejercicio fue realizado usando la cloud de Amazon, en la cual se crearon dife
 
 ![](images/Infraestructura.png)
 
-Dentro del clúster ECS nos encontramos con un servicio que contiene 2 task, cada uno de estas task es una instancia de la aplicación almacenada en un EC2 que será usada por el balanceador de carga; al tener la aplicación en un clúster ECS se le delega a Amazon toda la responsabilidad de la construcción del contenedor y su administración.
+Dentro del clúster ECS nos encontramos con un servicio que contiene 2 task, cada uno de estas task es una instancia de la aplicación almacenada en un EC2 que será usada por el balanceador de carga; al tener la aplicación en un clúster ECS se le delega a Amazon toda la responsabilidad de la construcción del contenedor y su administración, en este caso el servicio se despliega en el contenedor a través de docker. 
 
 Para soportar 1 millón de peticiones por segundo se requieren recursos con mayor capacidad y crecer de forma horizontal en los picos de peticiones, ECS nos permite crecer fácilmente de forma horizontal pero en la configuración de este ejercicio no fue posible debido a altos costos que se pueden generar, adicionalmente tener más de una base de datos ayudaría al proceso de escalamiento, Dynamodb sería una excelente opción ya que nos permite escalar y sincronizar las diferentes bases de datos.
 
 ## Arquitectura
-La arquitectura de software que se utilizó para solucionar el ejercicio fue un arquitectura hexagonal, la cual nos permite separar toda nuestra lógica de negocio (dominio) del resto de las funcionalidades, el dominio a su vez expone puertos (interfaces) con métodos ya establecidos que serán consumidos por diferentes adaptadores; así por ejemplo, nos abstraemos de que el detector de mutantes sea utilizado a través de una API REST, desde una interfaz gráfica o desde una consola y que la información de los mutantes sea almacenada en una base de datos relacional o no relacional. El siguiente diagrama ayudará a explicar un poco más en que consiste esta arquitectura.
+La arquitectura de software que se utilizó para solucionar el ejercicio fue un arquitectura hexagonal, la cual nos permite separar toda nuestra lógica de negocio (dominio) del resto de las funcionalidades, el dominio a su vez expone puertos (interfaces) con firmas de métodos ya establecidas que serán consumidas por diferentes adaptadores; así por ejemplo, nos abstraemos de que el detector de mutantes sea utilizado a través de una API REST, desde una interfaz gráfica o desde una consola y que la información de los mutantes sea almacenada en una base de datos relacional o no relacional. El siguiente diagrama ayudará a explicar un poco más en que consiste esta arquitectura.
 
 ![](images/Hexagonal.png)
 
@@ -40,7 +40,7 @@ Para determinar si un DNA pertenecía a un humano o al de un mutante, se hizo us
 | **C** | C | C | C | T | A |
 | **T** | C | A | C | T | G |
 
-En este caso toda la primera columna que está en negrita será enviada a otro algoritmo para contar la cantidad de letras secuenciales que posee, en este ejemplo no contará ninguna y seguirá con la siguiente columna. Miremos otro ejemplo:
+En este caso el algoritmo extraerá la información de la matriz de forma vertical, toda la primera columna que está en negrita será enviada a otro algoritmo para contar la cantidad de letras secuenciales que posee, en este ejemplo no contará ninguna y seguirá con la siguiente columna. Miremos otro ejemplo:
 
 |||||||
 |---|---|---|---|---|---|
